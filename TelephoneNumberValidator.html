@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="user-input">
+    <button id="check-btn">Check</button>
+    <button id="clear-btn">Clear</button>
+    <div id="results-div"></div>
+</body>
+<script>
+    document.getElementById("check-btn").addEventListener("click", function(){
+        let userInput = document.getElementById("user-input").value;
+        const regex = /^1?(?: \(| |\()?(?:\d{3}(?:-|\) |\)| )?){2}\d{4}/gm;
+        
+        if (userInput === "") {
+            alert("Please provide a phone number");
+        } else {
+            if (regex.test(userInput)) {
+                document.getElementById("results-div").innerHTML = "Valid US number: " + userInput;
+            } else {
+                document.getElementById("results-div").innerHTML = "Invalid US number: " + userInput;
+            }
+        }
+    })
+
+    document.getElementById("clear-btn").addEventListener("click", function(){
+        document.getElementById("results-div").innerHTML = "";
+    })
+</script>
+</html>
