@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" id="number">
+    <button id="convert-btn">Convert</button>
+    <div id="output">
+
+    </div>
+</body>
+</html>
+<script>
+    function convertToRoman(number){
+        let roman = ["I","IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"];
+        let decimal = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
+        let result = "";
+        for(let i = roman.length; i >= 0; i--){
+            while(number >= decimal[i]){
+                number -= decimal[i];
+                result += roman[i];
+            }
+        }
+        return result;
+    }
+    document.getElementById("convert-btn").addEventListener("click", function(){
+        let number = document.getElementById("number").value;
+        let output = document.getElementById("output");
+        if(number == ""){
+            output.innerHTML = 'Please enter a valid number';
+            return;
+        }else if(number < 1){
+            output.innerHTML = 'Please enter a number greater than or equal to 1';
+            return;
+        }else if(number >= 4000){
+            output.innerHTML = 'Please enter a number less than or equal to 3999';
+            return;
+        }
+        output.innerHTML = convertToRoman(number);
+    })
+</script>
