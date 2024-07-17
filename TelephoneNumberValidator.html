@@ -14,7 +14,7 @@
 <script>
     document.getElementById("check-btn").addEventListener("click", function(){
         let userInput = document.getElementById("user-input").value;
-        const regex = /^1?(?: \(| |\()?(?:\d{3}(?:-|\) |\)| )?){2}\d{4}/gm;
+        const regex = /(^(?:1 |1)?(?:\d{3}|\(\d{3}\))(?:\d{3}| \d{3} |-\d{3}-| \d{3}-|\d{3}-|\d{3} )\d{4}$)/mg;
         
         if (userInput === "") {
             alert("Please provide a phone number");
