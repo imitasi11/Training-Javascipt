@@ -10,19 +10,22 @@
     <div id="change-due"></div>
     <button id="purchase-btn">Purchase</button>
   </body>
-  <script src="script.js"></script>
+  <!-- 
+  When price is 19.5, the value in the #cash element is 20, 
+  cid is [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]], 
+  and the #purchase-btn element is clicked, the value in the #change-due element should be "Status: CLOSED PENNY: $0.5". -->
   <script>
-    let price = 1.87;
+    let price = 19.5;
     let cid = [
-      ["PENNY", 1.01],
-      ["NICKEL", 2.05],
-      ["DIME", 3.1],
-      ["QUARTER", 4.25],
-      ["ONE", 90],
-      ["FIVE", 55],
-      ["TEN", 20],
-      ["TWENTY", 60],
-      ["ONE HUNDRED", 100],
+      ["PENNY", 0.5],
+      ["NICKEL", 0],
+      ["DIME", 0],
+      ["QUARTER", 0],
+      ["ONE", 0],
+      ["FIVE", 0],
+      ["TEN", 0],
+      ["TWENTY", 0],
+      ["ONE HUNDRED", 0],
     ];
     let curr = [
       ["PENNY", 0.01],
@@ -50,7 +53,10 @@
             document.getElementById("change-due").innerHTML = result;
             return;
         }else if(total === change) {
-            result += "CLOSED";
+            result += "CLOSED ";
+            cid.forEach((row) => {
+                row[1]>0 ? result += `${row[0]}: $${row[1]} `:``;
+            })
             document.getElementById("change-due").innerHTML = result;
             return;
         }else{
@@ -62,6 +68,11 @@
             console.log('curr0'+curr[i][0]);
             console.log('curr1'+curr[i][1]);
             console.log('change'+change);
+            if(i==0 && cid[i][1]-curr[i][1]<0) {
+                result += "INSUFFICIENT_FUNDS";
+                document.getElementById("change-due").innerHTML = result;
+                return;
+            }
             while(change >= curr[i][1] && (cid[i][1]-curr[i][1])>=0) {
                 console.log('change bef'+change);
                 console.log('storage name'+curr[i][0]);
@@ -90,6 +101,7 @@
                     
                 }
             }
+            
         }
     }
 
